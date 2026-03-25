@@ -1100,16 +1100,16 @@ body {
   border-top: 1px solid var(--border);
   position: relative;
   z-index: 1;
-  padding: 48px 0 0;
+  padding: 32px 0 0;
 }
 
 .footer-inner {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 0 24px 40px;
+  padding: 0 24px 24px;
   display: grid;
-  grid-template-columns: 2.2fr 1fr 1fr 1fr;
-  gap: 30px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
 }
 
 .footer-col {
@@ -1205,7 +1205,7 @@ body {
 
 .footer-bottom {
   border-top: 1px solid var(--border);
-  padding: 18px 24px;
+  padding: 12px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
