@@ -2,7 +2,7 @@ services:
   - type: web
     name: bugsolvev1
     runtime: node
-    buildCommand: npm install
+    buildCommand: npm install --build-from-source
     startCommand: npm start
     envVars:
       - key: NODE_ENV
