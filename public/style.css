@@ -1093,6 +1093,106 @@ body {
   padding-top: 3px;
 }
 
+
+/* ===================================================
+   Workflow Section
+=================================================== */
+.workflow-section {
+  padding: 80px 24px;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 115, 0, 0.05) 0%, transparent 70%);
+  position: relative;
+  overflow: hidden;
+}
+
+.workflow-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.workflow-step {
+  flex: 1;
+  text-align: center;
+  padding: 32px 24px;
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  transition: var(--transition);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.workflow-step:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent-orange);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 115, 0, 0.1);
+}
+
+.step-icon-wrapper {
+  width: 64px;
+  height: 64px;
+  background: var(--gradient-primary);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+  box-shadow: 0 8px 16px rgba(255, 115, 0, 0.3);
+}
+
+.step-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.step-number {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  color: #ff7300;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.step-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.step-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.workflow-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+  color: var(--text-muted);
+  opacity: 0.3;
+}
+
 /* ===================================================
    Footer
 =================================================== */
@@ -1295,5 +1395,22 @@ body {
     flex-direction: column;
     gap: 12px;
     text-align: center;
+  }
+
+  /* Workflow Responsive */
+  .workflow-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 32px;
+  }
+
+  .workflow-arrow {
+    transform: rotate(90deg);
+    padding: 0;
+    margin: -10px 0;
+  }
+
+  .workflow-section {
+    padding: 60px 20px;
   }
 }
