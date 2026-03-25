@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Code Debugger & Refactor Assistant</title>
+  <meta name="description" content="Paste your code and let AI detect bugs, refactor, and explain improvements instantly. Built for beginner developers and students." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  
+  <!-- Highlight.js for Syntax Highlighting -->
+  <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css" disabled>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Animated background -->
+  <div class="bg-gradient"></div>
+  <canvas class="bg-canvas" id="bg-canvas"></canvas>
+  <div class="pointer-glow" id="pointer-glow"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <img src="img/image.png" alt="BugSolve Logo" class="logo-img" />
+        <div class="logo-text">
+          <span class="logo-main">Bug<span class="logo-accent">Solve</span></span>
+          <span class="logo-sub">Debugger & Refactor Assistant</span>
+        </div>
+      </div>
+      <div class="header-badges">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark/light mode">
+          <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <button id="auth-btn" class="btn btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          Sign In
+        </button>
+        <button id="history-toggle" class="btn btn-ghost" hidden>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          History
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="container">
+
+    <!-- Hero -->
+    <section class="hero">
+      <h1 class="hero-title">Debug &amp; Refactor Code<br /><span class="gradient-text">with AI Precision</span></h1>
+      <p class="hero-subtitle">Paste your code below. Our AI will detect bugs, clean up your code, and explain every improvement — in seconds.</p>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">10+</span><span class="stat-label">Languages</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">Gemini 2.5</span><span class="stat-label">Powered</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">Instant</span><span class="stat-label">Results</span></div>
+      </div>
+    </section>
+
+    <!-- Input Card -->
+    <section class="card input-card">
+      <div class="card-header">
+        <h2 class="card-title">
+          <span class="card-icon">📝</span> Your Code
+        </h2>
+        <div class="controls">
+          <select id="language-select" class="lang-select" aria-label="Select programming language">
+            <option value="Auto-detect">🤖 Auto-detect</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Python">Python</option>
+            <option value="Java">Java</option>
+            <option value="C">C</option>
+            <option value="C++">C++</option>
+            <option value="C#">C#</option>
+            <option value="TypeScript">TypeScript</option>
+            <option value="PHP">PHP</option>
+            <option value="Ruby">Ruby</option>
+            <option value="Go">Go</option>
+            <option value="Rust">Rust</option>
+            <option value="SQL">SQL</option>
+          </select>
+          <button id="clear-btn" class="btn btn-ghost" aria-label="Clear code input">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6M14 11v6"></path><path d="M9 6V4h6v2"></path></svg>
+            Clear
+          </button>
+        </div>
+      </div>
+      <div class="editor-wrapper">
+        <div class="line-numbers" id="line-numbers" aria-hidden="true">1</div>
+        <div class="code-editor-container">
+          <pre id="highlighting-pre" aria-hidden="true"><code id="highlighting-code"></code></pre>
+          <textarea
+            id="code-input"
+            class="code-editor"
+            placeholder="// Paste your code here...
+// Example:
+function calculateSum(arr) {
+  let sum = 0;
+  for (let i = 0; i <= arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum;
+}"
+            spellcheck="false"
+            autocomplete="off"
+            aria-label="Code input area"
+          ></textarea>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span id="char-count" class="char-count">0 characters</span>
+        <button id="analyze-btn" class="btn btn-primary" aria-label="Analyze code">
+          <span class="btn-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </span>
+          <span class="btn-text">Analyze Code</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Loading -->
+    <div id="loading" class="loading-wrapper" aria-live="polite" hidden>
+      <div class="loading-card">
+        <div class="loading-spinner">
+          <div class="spinner-ring"></div>
+          <div class="spinner-ring spinner-ring-2"></div>
+        </div>
+        <p class="loading-title">Analyzing your code…</p>
+        <p class="loading-sub" id="loading-step">Detecting patterns and bugs</p>
+      </div>
+    </div>
+
+    <!-- Error Toast -->
+    <div id="error-toast" class="error-toast" role="alert" hidden>
+      <span class="toast-icon">⚠️</span>
+      <span id="error-message">An error occurred.</span>
+      <button id="toast-close" class="toast-close" aria-label="Close error">✕</button>
+    </div>
+
+    <!-- Results -->
+    <section id="results" class="results-section" hidden>
+
+      <!-- Bugs Panel -->
+      <div class="card result-card bugs-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span class="card-icon">🐛</span> Bugs &amp; Issues Detected
+            <span class="badge-count" id="bug-count">0</span>
+          </h2>
+        </div>
+        <div id="bugs-list" class="bugs-list"></div>
+      </div>
+
+      <!-- Refactored Code Panel -->
+      <div class="card result-card code-card">
+        <div class="card-header">
+          <h2 class="card-title"><span class="card-icon">✨</span> Refactored Code</h2>
+          <div class="card-actions">
+            <button id="comment-toggle" class="theme-toggle-btn sm" title="Toggle Comments">
+              <svg class="comment-on" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                <line x1="9" y1="9" x2="15" y2="9"></line>
+                <line x1="9" y1="13" x2="15" y2="13"></line>
+              </svg>
+              <svg class="comment-off" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                <line x1="3" y1="3" x2="21" y2="21"></line>
+              </svg>
+            </button>
+            <button id="copy-btn" class="btn btn-ghost" aria-label="Copy refactored code">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+        <div class="code-result-wrapper">
+          <pre class="code-result"><code id="refactored-code" aria-label="Refactored code output"></code></pre>
+        </div>
+      </div>
+
+      <!-- Explanation Panel -->
+      <div class="card result-card explanation-card">
+        <div class="card-header">
+          <h2 class="card-title"><span class="card-icon">💡</span> Explanation</h2>
+        </div>
+        <div id="explanation-list" class="explanation-list"></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Built with ❤️ using Node.js, Express & Google Gemini &nbsp;·&nbsp; <span class="footer-brand">BugSolve</span></p>
+  </footer>
+
+  <!-- Auth Modal -->
+  <div id="auth-modal" class="modal" hidden>
+    <div class="modal-content card">
+      <div class="card-header">
+        <h2 id="modal-title" class="card-title">Sign In</h2>
+        <button id="modal-close" class="toast-close">✕</button>
+      </div>
+      <form id="auth-form" class="auth-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" required placeholder="Enter username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" required placeholder="Enter password">
+        </div>
+        <button type="submit" id="auth-submit" class="btn btn-primary w-full">Sign In</button>
+        <p class="auth-switch">
+          Don't have an account? <a href="#" id="switch-auth">Sign Up</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- History Drawer -->
+  <div id="history-drawer" class="drawer" hidden>
+    <div class="drawer-content card">
+      <div class="card-header">
+        <h2 class="card-title">Analysis History</h2>
+        <button id="history-close" class="toast-close">✕</button>
+      </div>
+      <div id="history-list" class="history-list">
+        <!-- History items will be injected here -->
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
