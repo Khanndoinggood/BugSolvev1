@@ -1098,99 +1098,75 @@ body {
    Workflow Section
 =================================================== */
 .workflow-section {
-  padding: 80px 24px;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 115, 0, 0.05) 0%, transparent 70%);
+  padding: 100px 24px;
   position: relative;
-  overflow: hidden;
 }
 
 .workflow-container {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
 }
 
 .workflow-step {
-  flex: 1;
-  text-align: center;
-  padding: 32px 24px;
-  background: var(--bg-card);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  transition: var(--transition);
   position: relative;
+  padding: 40px 32px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 16px;
 }
 
 .workflow-step:hover {
-  transform: translateY(-8px);
-  border-color: var(--accent-orange);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 115, 0, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 115, 0, 0.2);
+  transform: translateY(-5px);
 }
 
-.step-icon-wrapper {
-  width: 64px;
-  height: 64px;
-  background: var(--gradient-primary);
-  border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  position: relative;
-  box-shadow: 0 8px 16px rgba(255, 115, 0, 0.3);
-}
-
-.step-icon {
-  width: 28px;
-  height: 28px;
-}
-
-.step-number {
+.step-num-bg {
   position: absolute;
-  top: -8px;
-  right: -8px;
-  width: 24px;
-  height: 24px;
-  background: #fff;
-  color: #ff7300;
-  border-radius: 50%;
-  font-size: 0.8rem;
-  font-weight: 800;
+  top: -10px;
+  right: 10px;
+  font-size: 5rem;
+  font-weight: 900;
+  color: rgba(255, 115, 0, 0.03);
+  line-height: 1;
+  pointer-events: none;
+  font-family: 'Outfit', sans-serif;
+}
+
+.step-icon-minimal {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 115, 0, 0.1);
+  color: var(--accent-orange);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 8px;
 }
 
 .step-title {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1.15rem;
+  font-weight: 600;
   color: var(--text-primary);
   margin: 0;
+  letter-spacing: -0.01em;
 }
 
 .step-desc {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--text-muted);
   line-height: 1.6;
   margin: 0;
-}
-
-.workflow-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 50px;
-  color: var(--text-muted);
-  opacity: 0.3;
+  font-weight: 400;
 }
 
 /* ===================================================
@@ -1204,12 +1180,12 @@ body {
 }
 
 .footer-inner {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 0 24px 24px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  padding: 0 24px 48px;
 }
 
 .footer-col {
