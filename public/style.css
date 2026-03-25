@@ -1095,99 +1095,122 @@ body {
 
 
 /* ===================================================
-   Workflow Section
+   Workflow Section (Premium Timeline)
 =================================================== */
 .workflow-section {
-  padding: 80px 24px 100px;
-  position: relative;
+  padding: 100px 24px;
+  background: radial-gradient(circle at 50% 100%, rgba(255, 115, 0, 0.03) 0%, transparent 50%);
 }
 
-.workflow-header {
+.workflow-header-minimal {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
 }
 
-.section-title {
-  font-size: 2rem;
+.eyebrow {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--accent-orange);
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+
+.section-title-minimal {
+  font-size: 2.25rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: #fff;
   margin: 0;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
-.title-underline {
-  width: 40px;
-  height: 4px;
-  background: var(--gradient-primary);
-  margin: 12px auto 0;
-  border-radius: 2px;
-}
-
-.workflow-container {
-  max-width: 1100px;
+.timeline-container {
+  max-width: 1000px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
 }
 
-.workflow-step {
+.timeline-line {
+  position: absolute;
+  top: 24px;
+  left: 80px;
+  right: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    rgba(255, 115, 0, 0) 0%, 
+    rgba(255, 115, 0, 0.2) 20%, 
+    rgba(138, 43, 226, 0.2) 80%, 
+    rgba(138, 43, 226, 0) 100%
+  );
+  z-index: 0;
+}
+
+.timeline-step {
   position: relative;
-  padding: 40px 32px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 24px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  align-items: center;
+  flex: 1;
+  max-width: 280px;
 }
 
-.workflow-step:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 115, 0, 0.2);
-  transform: translateY(-5px);
-}
-
-.step-num-bg {
-  position: absolute;
-  top: -10px;
-  right: 10px;
-  font-size: 5rem;
-  font-weight: 900;
-  color: rgba(255, 115, 0, 0.03);
-  line-height: 1;
-  pointer-events: none;
-  font-family: 'Outfit', sans-serif;
-}
-
-.step-icon-minimal {
-  width: 44px;
-  height: 44px;
-  background: rgba(255, 115, 0, 0.1);
-  color: var(--accent-orange);
-  border-radius: 12px;
+.step-dot {
+  width: 50px;
+  height: 50px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 0 4px var(--bg-main);
 }
 
-.step-title {
-  font-size: 1.15rem;
-  font-weight: 600;
+.step-dot.active {
+  background: var(--gradient-primary);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 0 0 4px var(--bg-main), 0 0 20px rgba(255, 115, 0, 0.3);
+}
+
+.timeline-step:hover .step-dot {
+  transform: scale(1.1);
+  border-color: var(--accent-orange);
+  color: var(--accent-orange);
+}
+
+.timeline-step:hover .step-dot.active {
+  color: #fff;
+  box-shadow: 0 0 0 4px var(--bg-main), 0 0 30px rgba(255, 115, 0, 0.5);
+}
+
+.step-content {
+  text-align: center;
+}
+
+.step-label {
+  font-size: 1rem;
+  font-weight: 700;
   color: var(--text-primary);
-  margin: 0;
+  margin: 0 0 8px;
   letter-spacing: -0.01em;
 }
 
-.step-desc {
-  font-size: 0.88rem;
+.step-text {
+  font-size: 0.85rem;
   color: var(--text-muted);
   line-height: 1.6;
   margin: 0;
-  font-weight: 400;
+  max-width: 200px;
 }
 
 /* ===================================================
