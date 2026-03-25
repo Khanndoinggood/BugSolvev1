@@ -1,5 +1,8 @@
 node_modules/
 .env
+*.sqlite
+*.db
+.DS_Store
 node-v20.11.1-darwin-arm64/
 node.tar.gz
 node-installer.pkg
