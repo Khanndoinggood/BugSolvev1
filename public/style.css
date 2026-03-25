@@ -1105,6 +1105,8 @@ body {
 .workflow-header-minimal {
   text-align: center;
   margin-bottom: 80px;
+  position: relative;
+  z-index: 10;
 }
 
 .eyebrow {
