@@ -1123,7 +1123,7 @@ body {
 .section-title-minimal {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--text-primary);
   margin: 0;
   letter-spacing: -0.04em;
   line-height: 1.1;
