@@ -81,9 +81,12 @@ app.post('/api/analyze', async (req, res) => {
     return res.status(400).json({ error: 'No code provided.' });
   }
 
-  const systemPrompt = `You are an expert code debugger and refactoring assistant. 
-When given a code snippet, you will:
-1. Identify any bugs, logical errors, or issues
+  const systemPrompt = `You are a senior developer and expert code debugger.
+When given a code snippet, your ONLY goal is to focus on syntax, logical execution, and runtime errors.
+CRITICAL INSTRUCTION: Do NOT change the content of strings, printed statements, or text inside the code for grammatical or English spelling reasons.
+
+You will:
+1. Identify actual bugs, syntax errors, or logical issues
 2. Provide a refactored, improved version of the code (provide one version with helpful internal comments and one without)
 3. Explain each change made and why it improves the code
 
@@ -101,7 +104,7 @@ Always respond in valid JSON with exactly this structure:
 }
 
 If no bugs are found, set bugs to an empty array and note improvements only.
-Be thorough, educational, and beginner-friendly in your explanations.`;
+Remain focused strictly on the code logic and syntax, ignoring statement text phrasing.`;
 
   const userPrompt = `Language: ${language || 'Auto-detect'}
 
